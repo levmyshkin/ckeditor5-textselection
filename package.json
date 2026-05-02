@@ -1,0 +1,16 @@
+{
+  "name": "extra-ckeditor-plugins",
+  "version": "1.0.0",
+  "description": "Custom CKEditor 5 plugins for Drupal",
+  "private": true,
+  "scripts": {
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development",
+    "watch": "webpack --mode development --watch"
+  },
+  "devDependencies": {
+    "terser-webpack-plugin": "^5.3.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^5.0.0"
+  }
+}
