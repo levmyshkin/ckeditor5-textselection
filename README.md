@@ -1,6 +1,20 @@
 # CKEditor 5 Text Selection Plugin
 
-CKEditor 5 plugin that preserves text selection.
+A plugin that makes the editor keep its text selection when switching between
+WYSIWYG and Source mode, and scrolls the selection into the viewport.
+
+Inspired by the [CKEditor Text Selection plugin](https://ckeditor.com/cke4/addon/textselection).
+
+This plugin also works with the [CKEditor 5 CodeMirror Source Editing](https://github.com/cdubz/ckeditor5-source-editing-codemirror) plugin.
+
+## Demo
+
+Open `demo/index.html` in a browser to try the plugin with CKEditor 5 loaded
+from CDN. Select text, toggle **Source** mode, and see the selection preserved.
+
+## License
+
+Licensed under the terms of the [MIT License](LICENSE).
 
 ## Structure
 
@@ -14,11 +28,6 @@ ckeditor5-textselection/
 ├── package.json
 └── webpack.config.js
 ```
-
-## Demo
-
-Open `demo/index.html` in a browser to try the plugin with CKEditor 5 loaded
-from CDN. Select text, toggle **Source** mode, and see the selection preserved.
 
 ## Building
 
