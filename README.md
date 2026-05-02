@@ -12,6 +12,8 @@ This plugin also works with the [CKEditor 5 CodeMirror Source Editing](https://g
 Open `demo/index.html` in a browser to try the plugin with CKEditor 5 loaded
 from CDN. Select text, toggle **Source** mode, and see the selection preserved.
 
+[Demo CKEditor TextSelection](https://levmyshkin.github.io/ckeditor5-textselection/)
+
 ## License
 
 Licensed under the terms of the [GPL-2.0 License](LICENSE).
@@ -30,6 +32,14 @@ ckeditor5-textselection/
 ```
 
 ## Building
+
+The webpack build uses the CKEditor 5 **DLL Reference Plugin** to integrate with
+Drupal's CKEditor 5 DLL system. Instead of bundling CKEditor 5 core modules, the
+built file delegates to `CKEditor5.dll` at runtime — the shared library that
+Drupal core provides on every page with a CKEditor 5 instance.
+
+The DLL manifest (`ckeditor5-dll.manifest.json`) is sourced from the `ckeditor5`
+npm package which is included as a dev dependency.
 
 ```bash
 npm install

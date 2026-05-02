@@ -39,14 +39,16 @@ const baseConfig = {
     libraryTarget: 'umd',
     libraryExport: 'default',
   },
-  externals: {
-    'ckeditor5/src/core': 'CKEditor5.core',
-    'ckeditor5/src/engine': 'CKEditor5.engine',
-    'ckeditor5/src/ui': 'CKEditor5.ui',
-    'ckeditor5/src/utils': 'CKEditor5.utils',
-  },
   plugins: [
     new webpack.BannerPlugin('cspell:disable'),
+    new webpack.DllReferencePlugin({
+      manifest: require(path.resolve(
+        __dirname,
+        'node_modules/ckeditor5/build/ckeditor5-dll.manifest.json',
+      )),
+      scope: 'ckeditor5/src',
+      name: 'CKEditor5.dll',
+    }),
   ],
   module: {
     rules: [{ test: /\.svg$/, type: 'asset/source' }],
