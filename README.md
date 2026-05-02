@@ -14,7 +14,7 @@ from CDN. Select text, toggle **Source** mode, and see the selection preserved.
 
 ## License
 
-Licensed under the terms of the [MIT License](LICENSE).
+Licensed under the terms of the [GPL-2.0 License](LICENSE).
 
 ## Structure
 
