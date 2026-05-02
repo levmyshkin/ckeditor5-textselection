@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CKEditor 5 – Text Selection Plugin Demo</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@43.3.1/dist/browser/ckeditor5.css">
+  <style>
+    body {
+      max-width: 800px;
+      margin: 40px auto;
+      font-family: system-ui, sans-serif;
+      padding: 0 20px;
+    }
+    h1 { font-size: 1.4rem; }
+    .instructions {
+      background: #f0f4f8;
+      border-left: 4px solid #3b82f6;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      border-radius: 4px;
+      line-height: 1.5;
+    }
+    .instructions code {
+      background: #e2e8f0;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    .ck-editor__editable {
+      min-height: 200px;
+      max-height: 400px;
+    }
+    .ck-source-editing-area {
+      overflow: hidden !important;
+      max-height: none !important;
+    }
+    .ck-source-editing-area textarea {
+      min-height: 200px;
+      max-height: 400px !important;
+      overflow: auto !important;
+    }
+  </style>
+</head>
+<body>
+
+<a href="https://github.com/levmyshkin/ckeditor5-textselection" target="_blank" class="github-corner" aria-label="Fork me on GitHub">
+  <span class="github-corner-ribbon">Fork me on GitHub</span>
+  <svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">
+    <path d="M0 0l115 115h15l12 27 108 108V0z" fill="#151513"></path>
+    <path class="octo-arm" d="M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16" style="transform-origin:130px 106px;" fill="#fff"></path>
+    <path class="octo-body" d="M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0 5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30 10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z" fill="#fff"></path>
+  </svg>
+  <style>
+    .github-corner {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 1000;
+      text-decoration: none;
+    }
+    .github-corner-ribbon {
+      position: absolute;
+      top: 36px;
+      right: -72px;
+      padding: 4px 60px;
+      background: #151513;
+      color: #fff;
+      font-size: 13px;
+      font-family: system-ui, sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-align: center;
+      transform: rotate(45deg);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .github-corner:hover .github-corner-ribbon {
+      opacity: 1;
+    }
+    .github-corner:hover .octo-arm {
+      animation: octocat-wave 560ms ease-in-out;
+    }
+    @keyframes octocat-wave {
+      0%, 100% { transform: rotate(0); }
+      20%, 60% { transform: rotate(-25deg); }
+      40%, 80% { transform: rotate(10deg); }
+    }
+  </style>
+</a>
+
+<h1>CKEditor 5 – Text Selection Plugin Demo</h1>
+
+<div class="instructions">
+  <strong>How to test:</strong>
+  Select some text in the editor, then click the <code>Source</code> toolbar button.
+  The cursor position is preserved in the source view. Edit in source mode, place
+  your cursor, then toggle back — the selection is restored in the WYSIWYG view.
+</div>
+
+<div id="editor">
+  <h2>Welcome to the Text Selection demo</h2>
+  <p>This editor has the <strong>TextSelection</strong> plugin enabled. It preserves
+  your cursor position and text selection when switching between the WYSIWYG and
+  Source editing modes.</p>
+  <p>Try selecting a word or phrase in this paragraph, then click the
+  <strong>Source</strong> button in the toolbar. You should see the corresponding
+  position highlighted in the HTML source.</p>
+  <p>Similarly, place your cursor somewhere in the source view and toggle back
+  to rich text — the cursor will land at the matching position in the document.</p>
+  <h2> About Author</h2>
+<p>
+	DrupalBook is a digital agency specializing in the <strong>design, development, and long-term support of scalable Drupal platforms</strong> for companies operating across multiple markets, languages, and teams.
+</p>
+<p>
+  <a href="https://drupalbook.org/" target="_blank">DrupalBook.org</a>
+</p>
+<p>
+	We work with organizations that treat Drupal not as a website builder, but as a <strong>core digital platform</strong> — one that must remain secure, extensible, and maintainable for years, not just until launch.
+</p>
+<p>
+	Our focus is <strong>architecture, content structure, and sustainable delivery</strong>, helping international companies build Drupal systems that support growth, complexity, and change.
+</p>
+<p>
+    DrupalBook began in 2010 as an open knowledge initiative focused on documenting real‑world Drupal site building and module development.
+</p>
+<p>
+    At a time when Drupal documentation was fragmented and often abstract, DrupalBook was created to explain how Drupal is actually used in production — content modeling, editorial workflows, performance optimization, and extensibility.
+</p>
+<p>
+    Over time, that work evolved from documentation into hands‑on delivery.
+</p>
+<p>
+    Organizations approached us not only to learn Drupal, but to build and maintain production platforms using the same principles we wrote about: clarity, structure, and long‑term thinking.
+</p>
+<p>
+    Today, DrupalBook operates as a boutique, engineering‑led Drupal agency, applying more than a decade of platform experience to real client systems.
+</p>
+<p>
+    We help international companies <strong>design, build, and operate Drupal platforms</strong> in environments where:
+</p>
+<ul>
+    <li data-list-item-id="e161b79c257bf9cd4f2df69934cd548cd">
+        Content structures are complex and long‑lived
+    </li>
+    <li data-list-item-id="edda59366c65d4cc7af1344f6a087d1c5">
+        Multiple teams or regions publish content
+    </li>
+    <li data-list-item-id="e74f9cbed501a80664cdccc71026c4109">
+        Stability, security, and upgradeability matter
+    </li>
+    <li data-list-item-id="e0cced898f6fdc6f734a63ff19e9ee3b9">
+        Drupal must integrate with other business systems
+    </li>
+</ul>
+<p>
+    &nbsp;
+</p>
+<h3>
+    Our Core Services
+</h3>
+<ul>
+  <li>Drupal Platform Architecture</li>
+  <li>Drupal Development</li>
+  <li>Drupal Migrations & Upgrades</li>
+  <li>Long-Term Support & Platform Ownership</li>
+</ul>
+
+<h2>
+        Let’s Talk
+    </h2>
+    <p>
+        If you are planning to:
+    </p>
+    <ul>
+        <li data-list-item-id="e77a93da81efc6bb6edb7815001264485">
+            Build a new Drupal platform
+        </li>
+        <li data-list-item-id="e894a54c0779f33c5d8296cb4daec317b">
+            Migrate or modernize an existing one
+        </li>
+        <li data-list-item-id="ed47e4cde5fc6d0cbe1efb611283e9cbb">
+            Bring order to a complex Drupal ecosystem
+        </li>
+    </ul>
+    <p>
+        We’re happy to start with a conversation.
+    </p>
+    <div>
+        <strong>Technical &amp; architecture inquiries</strong><br>
+        Ivan Abramenko, Principal Drupal Architect<br>
+        <a href="mailto:ivan.abramenko@drupalbook.org">ivan.abramenko@drupalbook.org</a>
+    </div>
+    <div>
+        <strong>Project inquiries</strong><br>
+        <a href="mailto:projects@drupalbook.org">projects@drupalbook.org</a>&nbsp;
+    </div>  
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "ckeditor5": "https://cdn.jsdelivr.net/npm/ckeditor5@43.3.1/dist/browser/ckeditor5.js",
+    "ckeditor5/": "https://cdn.jsdelivr.net/npm/ckeditor5@43.3.1/dist/browser/"
+  }
+}
+</script>
+
+<script type="module">
+import {
+  ClassicEditor,
+  Essentials,
+  Paragraph,
+  Bold,
+  Italic,
+  Heading,
+  Link,
+  List,
+  SourceEditing,
+  Plugin,
+} from 'ckeditor5';
+
+/**
+ * TextSelection plugin — preserves cursor / selection across Source ↔ WYSIWYG.
+ * (Inlined here for the demo; in production this is built via webpack.)
+ */
+class TextSelection extends Plugin {
+  static get pluginName() {
+    return 'TextSelection';
+  }
+
+  init() {
+    const editor = this.editor;
+
+    if (!editor.plugins.has('SourceEditing')) return;
+
+    const sourceEditing = editor.plugins.get('SourceEditing');
+    this._savedModelOffset = null;
+
+    editor.listenTo(
+      editor.model.document.selection,
+      'change',
+      () => {
+        if (!sourceEditing.isSourceEditingMode) {
+          this._savedModelOffset = this._modelSelectionToTextOffset();
+        }
+      },
+    );
+
+    editor.listenTo(
+      sourceEditing,
+      'change:isSourceEditingMode',
+      (_evt, _name, isActive) => {
+        if (isActive) {
+          this._onEnterSourceMode();
+        } else {
+          this._onLeaveSourceMode();
+        }
+      },
+      { priority: 'high' },
+    );
+  }
+
+  _onEnterSourceMode() {
+    const current = this._modelSelectionToTextOffset();
+    if (current !== null) this._savedModelOffset = current;
+    if (this._savedModelOffset === null) return;
+
+    const savedOffset = this._savedModelOffset;
+
+    setTimeout(() => {
+      const textarea = this._findSourceTextarea();
+      if (!textarea) return;
+
+      const html = textarea.value;
+      const posMap = this._buildPositionMap(html);
+
+      const startHtml = posMap[savedOffset.start] ?? html.length;
+      const endHtml = posMap[savedOffset.end] ?? html.length;
+
+      textarea.focus();
+      textarea.setSelectionRange(startHtml, endHtml);
+      this._scrollTextareaToOffset(textarea, startHtml);
+    }, 50);
+  }
+
+  _onLeaveSourceMode() {
+    const textarea = this._findSourceTextarea();
+    let offsetToRestore = this._savedModelOffset;
+
+    if (textarea) {
+      const html = textarea.value;
+      const selStart = textarea.selectionStart;
+      const selEnd = textarea.selectionEnd;
+      const posMap = this._buildPositionMap(html);
+      offsetToRestore = {
+        start: this._posMapReverse(posMap, selStart),
+        end: this._posMapReverse(posMap, selEnd),
+      };
+    }
+
+    this._savedModelOffset = null;
+    if (offsetToRestore === null) return;
+
+    const frozenOffset = offsetToRestore;
+    setTimeout(() => {
+      this._restoreModelSelectionFromTextOffset(frozenOffset);
+    }, 0);
+  }
+
+  _buildPositionMap(html) {
+    const model = this.editor.model;
+    const root = model.document.getRoot();
+    let modelText = '';
+
+    for (const value of model.createRangeIn(root).getWalker({ ignoreElementEnd: true })) {
+      if (value.type === 'text') modelText += value.item.data;
+    }
+
+    const posMap = new Array(modelText.length + 1).fill(-1);
+    let h = 0;
+    let m = 0;
+
+    while (h < html.length && m < modelText.length) {
+      const ch = html[h];
+
+      if (ch === '<') {
+        const close = html.indexOf('>', h);
+        h = close === -1 ? html.length : close + 1;
+        continue;
+      }
+
+      let htmlChar, advance;
+
+      if (ch === '&') {
+        const semi = html.indexOf(';', h + 1);
+        if (semi !== -1 && semi - h <= 10) {
+          htmlChar = this._decodeEntity(html.slice(h, semi + 1));
+          advance = semi - h + 1;
+        } else {
+          htmlChar = ch;
+          advance = 1;
+        }
+      } else {
+        htmlChar = ch;
+        advance = 1;
+      }
+
+      if (htmlChar === modelText[m]) {
+        posMap[m] = h;
+        m++;
+      }
+
+      h += advance;
+    }
+
+    posMap[modelText.length] = h;
+    return posMap;
+  }
+
+  _posMapReverse(posMap, htmlOffset) {
+    let best = 0;
+    for (let i = 0; i < posMap.length; i++) {
+      if (posMap[i] >= 0 && posMap[i] <= htmlOffset) best = i;
+    }
+    return best;
+  }
+
+  _decodeEntity(entity) {
+    const named = {
+      '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"',
+      '&apos;': "'", '&nbsp;': '\u00a0',
+    };
+    if (named[entity]) return named[entity];
+    if (/^&#x/i.test(entity)) return String.fromCodePoint(parseInt(entity.slice(3, -1), 16));
+    if (/^&#/.test(entity)) return String.fromCodePoint(parseInt(entity.slice(2, -1), 10));
+    return entity;
+  }
+
+  _modelSelectionToTextOffset() {
+    const model = this.editor.model;
+    const range = model.document.selection.getFirstRange();
+    if (!range) return null;
+    const root = model.document.getRoot();
+    return {
+      start: this._countTextCharsToPosition(model, root, range.start),
+      end: this._countTextCharsToPosition(model, root, range.end),
+    };
+  }
+
+  _countTextCharsToPosition(model, root, position) {
+    const range = model.createRange(model.createPositionAt(root, 0), position);
+    let count = 0;
+    for (const item of range.getItems()) {
+      if (item.is('$textProxy') || item.is('$text')) count += item.data.length;
+    }
+    return count;
+  }
+
+  _restoreModelSelectionFromTextOffset({ start, end }) {
+    const model = this.editor.model;
+    const root = model.document.getRoot();
+    try {
+      const startPos = this._findModelPositionAtTextOffset(model, root, start);
+      const endPos = this._findModelPositionAtTextOffset(model, root, end);
+      model.change(writer => {
+        writer.setSelection(writer.createRange(startPos, endPos));
+      });
+      this.editor.editing.view.scrollToTheSelection();
+    } catch (e) {
+      console.warn('[TextSelection] restore failed:', e);
+    }
+  }
+
+  _findModelPositionAtTextOffset(model, root, targetOffset) {
+    const range = model.createRangeIn(root);
+    let count = 0;
+    for (const value of range.getWalker({ ignoreElementEnd: true })) {
+      if (value.type !== 'text') continue;
+      const len = value.item.data.length;
+      if (count + len >= targetOffset) {
+        return value.previousPosition.getShiftedBy(targetOffset - count);
+      }
+      count += len;
+    }
+    return model.createPositionAt(root, 'end');
+  }
+
+  _findSourceTextarea() {
+    const el = this.editor.ui.view.element;
+    return el ? el.querySelector('.ck-source-editing-area textarea') : null;
+  }
+
+  _scrollTextareaToOffset(textarea, htmlOffset) {
+    const style = window.getComputedStyle(textarea);
+    const mirror = document.createElement('div');
+
+    [
+      'box-sizing', 'width',
+      'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+      'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width',
+      'font-size', 'font-family', 'font-weight', 'font-style',
+      'line-height', 'letter-spacing', 'word-spacing',
+      'white-space', 'word-wrap', 'overflow-wrap', 'tab-size',
+    ].forEach(p => { mirror.style[p] = style[p]; });
+
+    Object.assign(mirror.style, {
+      position: 'absolute', top: '-9999px', left: '-9999px',
+      overflow: 'hidden', height: 'auto', whiteSpace: 'pre-wrap', visibility: 'hidden',
+    });
+
+    mirror.textContent = textarea.value.slice(0, htmlOffset);
+    const caret = document.createElement('span');
+    caret.textContent = '\u200b';
+    mirror.appendChild(caret);
+
+    document.body.appendChild(mirror);
+    const caretTop = caret.offsetTop;
+    document.body.removeChild(mirror);
+
+    textarea.scrollTop = Math.max(0, caretTop - textarea.clientHeight / 2);
+  }
+}
+
+ClassicEditor
+  .create(document.querySelector('#editor'), {
+    plugins: [
+      Essentials, Paragraph, Bold, Italic, Heading, Link, List,
+      SourceEditing, TextSelection,
+    ],
+    toolbar: [
+      'sourceEditing', '|',
+      'heading', '|',
+      'bold', 'italic', 'link', '|',
+      'bulletedList', 'numberedList',
+    ],
+  })
+  .then(editor => {
+    console.log('Editor ready. TextSelection plugin active.');
+  })
+  .catch(error => {
+    console.error(error);
+  });
+</script>
+
+<footer style="margin-top: 40px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 0.85rem; text-align: center; line-height: 1.6;">
+  Built by <a href="https://drupalbook.org" target="_blank" style="color: #3b82f6; text-decoration: none;">DrupalBook</a> agency
+  · Author: <a href="https://www.linkedin.com/in/ivan-abramenko/" target="_blank" style="color: #3b82f6; text-decoration: none;">Ivan Abramenko</a>
+  · Licensed under <a href="../LICENSE" style="color: #3b82f6; text-decoration: none;">GPL-2.0 license</a>
+</footer>
+
+</body>
+</html>
