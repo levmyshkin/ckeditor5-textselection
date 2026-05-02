@@ -1,0 +1,7 @@
+{
+    "name": "levmyshkin/ckeditor5-textselection",
+    "description": "A plugin that makes CKEditor 5 keep its text selection when switching between Visual and Source mode.",
+    "type": "drupal-library",
+    "license": "GPL-2.0",
+    "require": {}
+}
