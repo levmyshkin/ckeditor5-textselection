@@ -39,6 +39,12 @@ const baseConfig = {
     libraryTarget: 'umd',
     libraryExport: 'default',
   },
+  externals: {
+    'ckeditor5/src/core': 'CKEditor5.core',
+    'ckeditor5/src/engine': 'CKEditor5.engine',
+    'ckeditor5/src/ui': 'CKEditor5.ui',
+    'ckeditor5/src/utils': 'CKEditor5.utils',
+  },
   plugins: [
     new webpack.BannerPlugin('cspell:disable'),
   ],

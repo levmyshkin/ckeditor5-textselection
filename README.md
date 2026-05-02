@@ -15,6 +15,11 @@ ckeditor5-textselection/
 └── webpack.config.js
 ```
 
+## Demo
+
+Open `demo/index.html` in a browser to try the plugin with CKEditor 5 loaded
+from CDN. Select text, toggle **Source** mode, and see the selection preserved.
+
 ## Building
 
 ```bash
